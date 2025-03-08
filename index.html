@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Web Profesional</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body onload="updateUI()">
+    <div id="alertBox" class="alert"></div>
+    <nav>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <div id="menu" class="menu">
+            <a onclick="showContent('inicio')">Inicio</a>
+            
+            <!-- Menú desplegable de Servicios (modificado) -->
+            <div class="dropdown-toggle" data-target="serviciosSubmenu" onclick="toggleSubMenu('serviciosSubmenu')">
+                Servicios
+            </div>
+            <div id="serviciosSubmenu" class="dropdown-menu">
+                <a onclick="showContent('servicios-subir')">Subir archivos</a>
+                <a onclick="showContent('servicios-docker')">Docker</a>
+            </div>
+            
+            <a onclick="showContent('contacto')">Contacto</a>
+            <a onclick="showContent('perfil')">Mi Perfil</a>
+            <button id="logout" onclick="logout()" style="display: none;">Cerrar Sesión</button>
+        </div>
+    </nav>
+    <header>
+        Mi Web Profesional
+    </header>
+    <div class="container" id="login">
+        <div class="login-container">
+            <h2>Iniciar Sesión</h2>
+            <input type="text" id="username" placeholder="Usuario">
+            <input type="password" id="password" placeholder="Contraseña">
+            <button onclick="login()">Ingresar</button>
+        </div>
+    </div>
+    
+    <!-- Secciones de contenido -->
+    <div id="inicio" class="content">
+        <div class="section-icon">🏠</div>
+        <h2>Bienvenido a Mi Web Profesional</h2>
+        <p>Soluciones tecnológicas a medida para tu negocio. Nuestro equipo de expertos está listo para ayudarte a transformar tu visión en realidad.</p>
+        <div class="two-columns">
+            <div class="column">
+                <h3>Últimas Novedades</h3>
+                <p>Conoce nuestros nuevos servicios y ofertas especiales. Estamos constantemente innovando para ofrecerte las mejores soluciones del mercado.</p>
+            </div>
+            <div class="column">
+                <h3>Próximos Eventos</h3>
+                <p>Mantente informado sobre nuestros webinars, talleres y presentaciones. Participa y lleva tu conocimiento al siguiente nivel.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Secciones de Servicios (modificadas) -->
+    <div id="servicios-subir" class="content">
+        <div class="section-icon">📤</div>
+        <h2>Subir Archivos</h2>
+        <p>Plataforma segura para la subida y gestión de archivos. Permite compartir documentos y archivos con facilidad en un entorno controlado y seguro.</p>
+        <div class="two-columns">
+            <div class="column">
+                <h3>Características</h3>
+                <p>Almacenamiento seguro, transferencia cifrada de datos, y gestión de permisos para compartir tus archivos de forma controlada.</p>
+            </div>
+            <div class="column">
+                <h3>Formatos admitidos</h3>
+                <p>Soporta múltiples formatos de archivo incluyendo documentos, imágenes, videos y archivos comprimidos.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="servicios-docker" class="content">
+    <div class="section-icon">🐳</div>
+    <h2>Docker</h2>
+    <p>Servicios de contenedores Docker para despliegue y gestión de aplicaciones. Optimiza tus recursos y simplifica el desarrollo y despliegue de tus aplicaciones.</p>
+
+    <!-- Panel de gestión de Docker mejorado -->
+    <div class="docker-management-panel">
+        <h3>Gestión de Contenedores Docker</h3>
+        
+        <!-- Botones para comandos Docker -->
+        <div class="docker-buttons">
+            <button onclick="executeDockerCommand('ps')" class="docker-btn">Ver Contenedores</button>
+            <button onclick="executeDockerCommand('images')" class="docker-btn">Ver Imágenes</button>
+            <button onclick="promptContainerRestart()" class="docker-btn">Reiniciar Contenedor</button>
+        </div>
+        
+        <!-- Área para mostrar resultados -->
+        <div class="docker-output-container">
+            <div class="docker-output-header">
+                <span>Resultado del Comando</span>
+                <button onclick="clearDockerOutput()" class="clear-btn">Limpiar</button>
+            </div>
+            <pre id="dockerCommandOutput" class="docker-output">Selecciona un comando para ver información de Docker...</pre>
+        </div>
+    </div>
+    
+    <div class="two-columns">
+        <div class="column">
+            <h3>Gestión de contenedores</h3>
+            <p>Administra tus contenedores Docker con comandos básicos: lista tus contenedores activos, visualiza las imágenes disponibles y reinicia contenedores cuando sea necesario.</p>
+            <div class="info-box">
+                <h4>Información de seguridad</h4>
+                <p>Todos los comandos se ejecutan con permisos restringidos a través de sudo y están limitados a operaciones seguras: ver contenedores, ver imágenes y reiniciar contenedores existentes.</p>
+            </div>
+        </div>
+        <div class="column">
+            <h3>¿Necesitas más opciones?</h3>
+            <p>Esta interfaz proporciona funcionalidad básica para administrar tus contenedores Docker. Para operaciones más avanzadas como crear o eliminar contenedores, considera usar la línea de comandos o una herramienta especializada como Portainer.</p>
+        </div>
+    </div>
+</div>
+
+    <div id="contacto" class="content">
+        <div class="section-icon">📞</div>
+        <h2>Contacto</h2>
+        <p>Escríbenos a info@miweb.com o llámanos al +34 123 456 789. Estaremos encantados de atenderte y resolver todas tus dudas.</p>
+        <div class="two-columns">
+            <div class="column">
+                <h3>Horario de Atención</h3>
+                <p>Lunes a Viernes: 9:00 - 18:00<br>
+                Sábados: 10:00 - 14:00</p>
+            </div>
+            <div class="column">
+                <h3>Ubicación</h3>
+                <p>Calle Principal 123<br>
+                28001 Madrid, España</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sección de perfil para cambiar credenciales -->
+    <div id="perfil" class="content">
+        <div class="section-icon">👤</div>
+        <h2>Mi Perfil</h2>
+        <p>Aquí puedes actualizar tus datos de acceso.</p>
+        <div class="login-container">
+            <h3>Cambiar credenciales</h3>
+            <input type="text" id="newUsername" placeholder="Nuevo nombre de usuario">
+            <input type="password" id="newPassword" placeholder="Nueva contraseña">
+            <input type="password" id="confirmPassword" placeholder="Confirmar contraseña">
+            <button onclick="changeCredentials()">Actualizar datos</button>
+        </div>
+    </div>
+    
+    <footer>
+        &copy; 2025 Mi Web - Todos los derechos reservados.
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
